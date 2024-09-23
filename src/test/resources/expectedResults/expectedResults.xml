@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!--PURPOSE of this xml is to store the Test Data EXPECTED RESULTS. We will use its key and values via 'Document Builder Factory' which we creaetd as a method in UTILITY class -->
+
+<resources>    <!--Inside this "RESOURCES" We will define all our Strings/Expected Results-->
+<String name="errMsg_invalidEmail">Email address not found.</String>        <!--This is Key value pair. Key you can give any name. Value should be the EXPECTED STATIC text while running a test case-->
+<String name="errMsg_invalidPassword">Invalid credentials</String>        <!--message when Invalid password is provided in Login test-->
+
+
+
+</resources>

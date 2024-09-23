@@ -1,0 +1,21 @@
+
+{
+	
+	"invalidUser": {
+		"username" : "xyz@gmail.com",
+		"password": "password1234" 
+	},
+	
+	"invalidPassword": {
+			"username" : "demo@smartac.com",
+			"password": "password123"
+		},
+	
+		"validUser": {
+					"username" : "demo@smartac.com",
+					"password": "p@ssword10661"
+				}
+			
+	
+	
+}
