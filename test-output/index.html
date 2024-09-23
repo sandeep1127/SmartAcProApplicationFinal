@@ -25,7 +25,7 @@
       <span class="top-banner-title-font">Test results</span>
       <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
       <br/>
-      <span class="top-banner-font-1">1 suite</span>
+      <span class="top-banner-font-1">1 suite, 1 failed test</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -39,7 +39,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" panel-name="suite-Suite" class="navigator-link">
-              <span class="suite-name border-passed">Suite</span>
+              <span class="suite-name border-failed">Suite</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -92,7 +92,21 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">3 methods,   3 passed</span>
+                    <span class="method-stats">3 methods, 1 failed,   2 passed</span>
+                  </li>
+                  <li>
+                    <span class="method-list-title failed">Failed methods</span>
+                    <span class="show-or-hide-methods failed">
+                      <a href="#" panel-name="suite-Suite" class="hide-methods failed suite-Suite"> (hide)</a> <!-- hide-methods failed suite-Suite -->
+                      <a href="#" panel-name="suite-Suite" class="show-methods failed suite-Suite"> (show)</a> <!-- show-methods failed suite-Suite -->
+                    </span>
+                    <div class="method-list-content failed suite-Suite">
+                      <span>
+                        <img src="failed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Suite" title="com.qa.testClass.LoginPageTest" class="method navigator-link" hash-for-method="invalidEmailErrText">invalidEmailErrText</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content failed suite-Suite -->
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -101,11 +115,6 @@
                       <a href="#" panel-name="suite-Suite" class="show-methods passed suite-Suite"> (show)</a> <!-- show-methods passed suite-Suite -->
                     </span>
                     <div class="method-list-content passed suite-Suite">
-                      <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Suite" title="com.qa.testClass.LoginPageTest" class="method navigator-link" hash-for-method="invalidEmailErrText">invalidEmailErrText</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
                       <span>
                         <img src="passed.png" width="3%"/>
                         <a href="#" panel-name="suite-Suite" title="com.qa.testClass.LoginPageTest" class="method navigator-link" hash-for-method="invalidPasswordErrText">invalidPasswordErrText</a> <!-- method navigator-link -->
@@ -128,9 +137,9 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-Suite" class="panel Suite">
-          <div class="suite-Suite-class-passed">
+          <div class="suite-Suite-class-failed">
             <div class="main-panel-header rounded-window-top">
-              <img src="passed.png"/>
+              <img src="failed.png"/>
               <span class="class-name">com.qa.testClass.LoginPageTest</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
@@ -139,8 +148,21 @@
                   <a name="invalidEmailErrText">
                   </a> <!-- invalidEmailErrText -->
                   <span class="method-name">invalidEmailErrText</span>
+                  <div class="stack-trace">java.lang.AssertionError: expected [Email address not found.] but found [Email address not found.lalala]
+	at com.qa.testClass.LoginPageTest.invalidEmailErrText(LoginPageTest.java:91)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+... Removed 33 stack frames
+</div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Suite-class-failed -->
+          <div class="suite-Suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">com.qa.testClass.LoginPageTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
                   <a name="invalidPasswordErrText">
@@ -171,10 +193,13 @@
     &lt;listener class-name=&quot;com.qa.listeners.TestListener&quot;/&gt;
   &lt;/listeners&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;Test&quot;&gt;
-    &lt;parameter name=&quot;platformVersion&quot; value=&quot;10.0&quot;/&gt;
+    &lt;parameter name=&quot;emulator&quot; value=&quot;false&quot;/&gt;
+    &lt;parameter name=&quot;simulator&quot; value=&quot;false&quot;/&gt;
+    &lt;parameter name=&quot;platformVersion&quot; value=&quot;13.0&quot;/&gt;
     &lt;parameter name=&quot;platformName&quot; value=&quot;Android&quot;/&gt;
     &lt;parameter name=&quot;udid&quot; value=&quot;PD21BDD464038424&quot;/&gt;
-    &lt;parameter name=&quot;deviceName&quot; value=&quot;Nokia5.4&quot;/&gt;
+    &lt;parameter name=&quot;deviceName&quot; value=&quot;Pixel_7&quot;/&gt;
+    &lt;parameter name=&quot;udidEmulator&quot; value=&quot;emulator-5554&quot;/&gt;
     &lt;classes&gt;
       &lt;class name=&quot;com.qa.testClass.LoginPageTest&quot;/&gt;
     &lt;/classes&gt;
@@ -220,20 +245,20 @@ data.addRows(3);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'validLogin')
 data.setCell(0, 2, 'com.qa.testClass.LoginPageTest')
-data.setCell(0, 3, 14077);
+data.setCell(0, 3, 15623);
 data.setCell(1, 0, 1)
 data.setCell(1, 1, 'invalidPasswordErrText')
 data.setCell(1, 2, 'com.qa.testClass.LoginPageTest')
-data.setCell(1, 3, 11138);
+data.setCell(1, 3, 13036);
 data.setCell(2, 0, 2)
 data.setCell(2, 1, 'invalidEmailErrText')
 data.setCell(2, 2, 'com.qa.testClass.LoginPageTest')
-data.setCell(2, 3, 8447);
+data.setCell(2, 3, 8292);
 window.suiteTableData['Suite']= { tableData: data, tableDiv: 'times-div-Suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 33 seconds</span>
+              <span class="suite-total-time">Total running time: 36 seconds</span>
               <div id="times-div-Suite">
               </div> <!-- times-div-Suite -->
             </div> <!-- times-div -->
@@ -244,6 +269,13 @@ return data;
             <span class="header-content">Reporter output for Suite</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
+            <div class="reporter-method-div">
+              <span class="reporter-method-name">invalidEmailErrText</span>
+              <div class="reporter-method-output-div">
+                <span class="reporter-method-output">This is the Screenshot of faile test cases</span>
+                <span class="reporter-method-output"><a href='C:\Users\schoudhary\eclipse-workspace\SmartACProApp\ScreenShots\Android_13.0_Pixel_7\2024-09-23-20-02-29\LoginPageTest\invalidEmailErrText.png'> <img src='C:\Users\schoudhary\eclipse-workspace\SmartACProApp\ScreenShots\Android_13.0_Pixel_7\2024-09-23-20-02-29\LoginPageTest\invalidEmailErrText.png' height='400' width='400'/> </a></span>
+              </div> <!-- reporter-method-output-div -->
+            </div> <!-- reporter-method-div -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
         <div panel-name="ignored-methods-Suite" class="panel">
@@ -261,56 +293,58 @@ return data;
             <div class="chronological-class">
               <div class="chronological-class-name">com.qa.testClass.LoginPageTest</div> <!-- chronological-class-name -->
               <div class="configuration-test before">
-                <span class="method-name">beforeTest(Android, Nokia5.4, 10.0, PD21BDD464038424)</span>
+                <span class="method-name">beforeTest(false, false, Android, Pixel_7, 13.0, PD21BDD464038424, emulator-5554)</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-test before -->
               <div class="configuration-class before">
                 <span class="method-name">beforeClass</span>
-                <span class="method-start">9217 ms</span>
+                <span class="method-start">8546 ms</span>
               </div> <!-- configuration-class before -->
               <div class="configuration-method before">
                 <span class="method-name">beforeMethod(public void com.qa.testClass.LoginPageTest.invalidEmailErrText())</span>
-                <span class="method-start">9226 ms</span>
+                <span class="method-start">8555 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
+                <img src="failed.png">
+                </img>
                 <span class="method-name">invalidEmailErrText</span>
-                <span class="method-start">9627 ms</span>
+                <span class="method-start">9158 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">afterMethod</span>
-                <span class="method-start">18077 ms</span>
+                <span class="method-start">18295 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">beforeMethod(public void com.qa.testClass.LoginPageTest.invalidPasswordErrText())</span>
-                <span class="method-start">18079 ms</span>
+                <span class="method-start">19086 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">invalidPasswordErrText</span>
-                <span class="method-start">18083 ms</span>
+                <span class="method-start">19317 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">afterMethod</span>
-                <span class="method-start">29222 ms</span>
+                <span class="method-start">32355 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">beforeMethod(public void com.qa.testClass.LoginPageTest.validLogin())</span>
-                <span class="method-start">29223 ms</span>
+                <span class="method-start">32968 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">validLogin</span>
-                <span class="method-start">29226 ms</span>
+                <span class="method-start">33270 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">afterMethod</span>
-                <span class="method-start">43305 ms</span>
+                <span class="method-start">48897 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-class after">
                 <span class="method-name">afterClass</span>
-                <span class="method-start">43309 ms</span>
+                <span class="method-start">49570 ms</span>
               </div> <!-- configuration-class after -->
               <div class="configuration-test after">
                 <span class="method-name">afterTest</span>
-                <span class="method-start">43312 ms</span>
+                <span class="method-start">49576 ms</span>
               </div> <!-- configuration-test after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

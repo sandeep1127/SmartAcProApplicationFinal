@@ -13,7 +13,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
-public class LoginPageTest extends BaseTest { // 1st -> We need to do this to initialize our Driver. Doing this, when TestNG will execute LoginPage Test class it will 1st go to BASE class and will run @beforeMethod and will initialize driver
+public class HomePageTest extends BaseTest { // 1st -> We need to do this to initialize our Driver. Doing this, when TestNG will execute LoginPage Test class it will 1st go to BASE class and will run @beforeMethod and will initialize driver
 	  
 	//Initialize Login Page and then Homeapge page at class level
 LoginPage loginPage;
@@ -25,22 +25,18 @@ JSONObject loginUsers;	 // we're creating JSON Object . It will contain all the 
 	
 	
 	
-  @BeforeMethod   
+  @BeforeMethod
   public void beforeMethod(Method m) {                          // To Print the name of method running in the CONSOLE. So for this we're using METHOD Class
 	  loginPage = new LoginPage();      
 	  System.out.println("\n" + "******* Starting test:" + m.getName() + "*******" + "\n");     // This method "GetName()" will give the name of the testMethod which is currently executing
-	 
-	 launchApp();
-	  System.out.println("\n" +"The app is launched" + "\n");   // before every method the app will get launched
+	  
   }
 
   @AfterMethod
   public void afterMethod() {
-	  closeApp();
-	  System.out.println("\n" +"The app is killed" + "\n");  // after every method the app will get killed
   }
- 
-  @BeforeClass  // These method will always run even if any test case fails due to some exception.
+
+  @BeforeClass
   public void beforeClass() throws IOException {
 	  // Purpose of below code to read the JSON login test data from "json File" created in 'TestData' folder . 
 	 try {
@@ -77,47 +73,5 @@ JSONObject loginUsers;	 // we're creating JSON Object . It will contain all the 
   //FYI 1. We stored all our TEST DATA credentials in a JSON File named "loginUsers.json" and we fetch data from there via using "getJSONObject" and "getString" methods used in test cases below
   //    2. We stored all our Expected Results statements  in a XML File named "expectedResults.xml" and we fetch data from there via  'Document Builder Factory' which we created as a method "parseStringXML" in UTILITY class which returns the HashMap with key|value pair . It will read the xml file as File Input Stream > Then initalized FileInputStream in BASECLASS and then used ExpectedResultStrings object here which contains key-value of Xml file.
    
-  @Test
-  public void invalidEmailErrText() {
-	  //loginPage.enterUserName("xyz@gmail.com");
-	  loginPage.enterUserName(loginUsers.getJSONObject("invalidUser").getString("username"));  // Instead of above code where we are hardcoding usernames, we are fetching test data fom JSON testdata File. where Object is "Invaliduser" and its key we need is "username". For this we wrote code in @Before Class
-	  loginPage.clickEmailLoginBtn();
-	  
-	  String actualErrText= loginPage.emailErrText() + "lalala";
-	 // String expectedErrText= "Email address not found.";
-	  String expectedErrText= ExpectedResultStrings.get("errMsg_invalidEmail");  // Instead to hardcoding EXPECTED RESULTS strings here, we created a XML file 'expectedResults.xml' and fetch key|value from HashMap string 'ExpectedResultStrings' via 'getMthod() to get object Key.
-	  System.out.println("actual error Text is :" + actualErrText + "\n" + "Expected Error text is:" + expectedErrText);
-	  
-	  Assert.assertEquals(actualErrText, expectedErrText);  
-  }
   
-  
-  @Test
-  public void invalidPasswordErrText() {
-	 
-	  loginPage.enterUserName(loginUsers.getJSONObject("invalidPassword").getString("username"));   // Using JSON object to fetch test data from file loginUsers.Json  . Here InalidPassword is object of which we are fetching value of key 'username'
-	  loginPage.clickEmailLoginBtn();
-	  loginPage.enterPassword(loginUsers.getJSONObject("invalidPassword").getString("password"));   // Using JSON object to get test data
-	  homePage= loginPage.pressLoginBtn();            // Since it will take to Homepage screen so we return Homepage Object . In thi was we have initialized it as well.
-	  
-	  String actualErrText= loginPage.passwordErrText();
-	  // String expectedErrText= "Invalid credentials";
-	  String expectedErrText= ExpectedResultStrings.get("errMsg_invalidPassword"); // Instead to hardcoding EXPECTED RESULTS strings here, we created a XML file 'expectedResults.xml' and fetch key|value from HashMap string 'ExpectedResultStrings' via 'getMthod() to get object Key.
-	  System.out.println("actual error Text is :" + actualErrText + "\n" + "Expected Error text is:" + expectedErrText);
-	  
-	  Assert.assertEquals(actualErrText, expectedErrText); 
-	   
-  }
-  
-  @Test
-  public void validLogin() {
-	  loginPage.enterUserName(loginUsers.getJSONObject("validUser").getString("username"));  // Using JSON object to get test data
-	  loginPage.clickEmailLoginBtn();
-	  loginPage.enterPassword(loginUsers.getJSONObject("validUser").getString("password"));  // Using JSON object to get test data
-	  homePage= loginPage.pressLoginBtn();            // Since it will take to Homepage screen so we return Homepage Object . In thi was we have initialized it as well.
-	  
-	 
-	  Assert.assertEquals(homePage.myTechChatsBtn.isDisplayed(), true);
-
-}
 }

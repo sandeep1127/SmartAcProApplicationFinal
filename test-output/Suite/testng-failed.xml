@@ -5,19 +5,22 @@
     <listener class-name="com.qa.listeners.TestListener"/>
   </listeners>
   <test thread-count="5" name="Test(failed)">
-    <parameter name="platformVersion" value="10.0"/>
+    <parameter name="emulator" value="false"/>
+    <parameter name="simulator" value="false"/>
+    <parameter name="platformVersion" value="13.0"/>
     <parameter name="platformName" value="Android"/>
     <parameter name="udid" value="PD21BDD464038424"/>
-    <parameter name="deviceName" value="Nokia5.4"/>
+    <parameter name="deviceName" value="Pixel_7"/>
+    <parameter name="udidEmulator" value="emulator-5554"/>
     <classes>
       <class name="com.qa.testClass.LoginPageTest">
         <methods>
           <include name="beforeMethod"/>
-          <include name="invalidPasswordErrText"/>
           <include name="beforeTest"/>
           <include name="beforeClass"/>
           <include name="afterMethod"/>
           <include name="afterTest"/>
+          <include name="invalidEmailErrText"/>
           <include name="afterClass"/>
         </methods>
       </class> <!-- com.qa.testClass.LoginPageTest -->

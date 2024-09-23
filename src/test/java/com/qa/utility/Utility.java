@@ -155,9 +155,16 @@ public class Utility {
         }
     
 
+// Method to get the DATE TIME
+        
+        public String dateTime() {
+    		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");  // It will return date time in this format. Used this method for Saving Screenshots of failed methods.
+    		Date date = new Date();
+    		return dateFormat.format(date);     
+    	}
 
 
-
+        
 
 
 
