@@ -16,10 +16,12 @@
       <class name="com.qa.testClass.LoginPageTest">
         <methods>
           <include name="beforeMethod"/>
+          <include name="beforeMethodForVideo"/>
+          <include name="beforeMethodForVideo"/>
           <include name="beforeTest"/>
           <include name="beforeClass"/>
-          <include name="afterMethod"/>
           <include name="afterTest"/>
+          <include name="afterMethod"/>
           <include name="invalidEmailErrText"/>
           <include name="afterClass"/>
         </methods>

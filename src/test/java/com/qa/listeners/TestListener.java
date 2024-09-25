@@ -50,7 +50,7 @@ public class TestListener implements ITestListener{// We're creating this LISTEN
 	                                                              				\methodName.png {helps identify the failed method}
 	 
 	 */
-	String failedImagePath = "ScreenShots" + File.separator + params.get("platformName") + "_" + params.get("platformVersion") + "_" + params.get("deviceName") + File.separator + base.getDateTime() + File.separator + result.getTestClass().getRealClass().getSimpleName() + File.separator + result.getName() + ".png" ;  // This is relative path
+	String failedImagePath = "FailedTestCasesScreenShots" + File.separator + params.get("platformName") + "_" + params.get("platformVersion") + "_" + params.get("deviceName") + File.separator + base.getDateTime() + File.separator + result.getTestClass().getRealClass().getSimpleName() + File.separator + result.getName() + ".png" ;  // This is relative path
 	 
 	 
 	String completeImagePath = System.getProperty("user.dir") + File.separator + failedImagePath;	 // we used to get the complete path from root directory	adn we are using it in our HTML report location to add the failed cases ss 

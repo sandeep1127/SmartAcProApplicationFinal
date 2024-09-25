@@ -10,25 +10,33 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.options.XCUITestOptions;
+import io.appium.java_client.screenrecording.CanRecordScreen;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
+import java.util.Base64;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 
 public class BaseTest {
   
@@ -44,6 +52,51 @@ public class BaseTest {
 	protected static String platform;   // created variable to be used in "getText() method and we assign its value in beforeTest() method
 	
 	
+	
+	// * * * *  Implementing VIDEO RECORDING of FAILED CASES in @Before and @After Methods.  (FOR IOS, we need to add extra dependency "ffmpeg" binary from CMD prompt using command" "brew install ffmpeg"
+	   @BeforeMethod	 // we are creating below method to RECORD THE VIDEO of  FAILED TEST Cases. Created here so that it can be used by every test class.
+		public void beforeMethodForVideo() {
+		  ((CanRecordScreen) driver).startRecordingScreen();  // Method to start the Recording 
+		   
+	   }
+	
+	
+	   @AfterMethod      // by adding "synchronized" we made this method synchronized which means at a particular time only 1 thread will use this method and other will wait.
+	   public synchronized void beforeMethodForVideo(ITestResult result ) throws IOException {  // Method to stop the recording of Failed Test cases
+	   //String media = ((CanRecordScreen) driver).stopRecordingScreen();  // Method to stop the Recording and we are storing the returned base 64 coded media in String variable. 
+		   String media = ((CanRecordScreen) driver).stopRecordingScreen();
+	   
+	   // we include IF statement if we want videos of only FAILED CASES . If you want videos of all run cases whether fail/pass, remove IF condition.
+		   if (result.getStatus() ==2){  // here GetSTatus will give the conculsion if test case failed or passed. As per this method, 2 means FAILED so we compared it with 2
+			// Now we need to create DIRECTORY STRUCTURE to save the videos and for that we need 'result' of ITestListener so pass that as Argument to this Method.
+			   Map <String, String> params = result.getTestContext().getCurrentXmlTest().getAllParameters();  // here we are fetching the testNG global paramters  as we need them for our directory so we use "Result" argument to fetch them which return them in hasMap so we created HashMap to store them
+			   
+			    //Our Directory will be : \FailedCasesVideos\<platformName>_<platormVersion>_<deviceName>\<datetime\<testClass>
+			   String failedCaseVideos = "FailedTestCasesVideos" + File.separator + params.get("platformName") + "_" + params.get("platformVersion") + "_" + params.get("deviceName") + File.separator +getDateTime() + File.separator + result.getTestClass().getRealClass().getSimpleName();  // This is relative path
+			   
+			   File videoDir = new File(failedCaseVideos);   // storing in a file
+			   
+			  
+			 // Introduce IF Statement we we want to save videos only of Failed Test cases  
+			   if(!videoDir.exists()) {     // we're checking if videoDir "failedCaseVideos" doesn't already exist, then create multiple directories
+					videoDir.mkdirs();   // create multiple directories if not created, and if they're available it will overwrite them
+				}	
+			   try (FileOutputStream stream = new FileOutputStream(videoDir + File.separator + result.getName() + ".mp4")) {
+				stream.write(Base64.getDecoder().decode(media));
+				// stream.write(base64.decodeBase64(stream));  Tutor's code which gives error
+
+			}catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}catch (IOException e) {
+				e.printStackTrace();
+
+			   }   
+			   
+		   }
+	  
+	   }
+		
+
 	
  @Parameters({"emulator", "simulator","platformName", "deviceName","platformVersion" , "udid" , "udidEmulator" })	 // We're using @PARAMTERS annotation of testNG to fetch our device specific capabilities Parameters from TESTNG file. Now pass these parameters to beforetest() method so that these parametrs acn be used there.
  @BeforeTest

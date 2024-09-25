@@ -83,7 +83,7 @@ JSONObject loginUsers;	 // we're creating JSON Object . It will contain all the 
 	  loginPage.enterUserName(loginUsers.getJSONObject("invalidUser").getString("username"));  // Instead of above code where we are hardcoding usernames, we are fetching test data fom JSON testdata File. where Object is "Invaliduser" and its key we need is "username". For this we wrote code in @Before Class
 	  loginPage.clickEmailLoginBtn();
 	  
-	  String actualErrText= loginPage.emailErrText() + "lalala";
+	  String actualErrText= loginPage.emailErrText() ;
 	 // String expectedErrText= "Email address not found.";
 	  String expectedErrText= ExpectedResultStrings.get("errMsg_invalidEmail");  // Instead to hardcoding EXPECTED RESULTS strings here, we created a XML file 'expectedResults.xml' and fetch key|value from HashMap string 'ExpectedResultStrings' via 'getMthod() to get object Key.
 	  System.out.println("actual error Text is :" + actualErrText + "\n" + "Expected Error text is:" + expectedErrText);
